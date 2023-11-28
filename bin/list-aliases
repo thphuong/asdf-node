@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Only for rtx
+echo lts latest
+echo stable latest

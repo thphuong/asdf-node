@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+current_script_path=${BASH_SOURCE[0]}
+plugin_dir=$(dirname "$(dirname "$current_script_path")")
+
+# shellcheck source=./lib/utils.sh
+source "${plugin_dir}/lib/utils.sh"
+
+DOWNLOAD_PARENT_DIR="$(dirname "$ASDF_DOWNLOAD_PATH")"
+
+mkdir -p "$DOWNLOAD_PARENT_DIR"
+
+export N_PREFIX=/tmp/asdf_n
+
+# Download and extract to /tmp/n/versions/<version>
+n "$ASDF_INSTALL_VERSION" --download
+
+# Copy to ASDF_DOWNLOAD_PATH
+cp -r "$N_PREFIX/n/versions/node/$ASDF_INSTALL_VERSION" "$DOWNLOAD_PARENT_DIR"
+
+# Cleanup
+trap "rm -r /tmp/asdf_n" EXIT
