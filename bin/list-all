@@ -8,4 +8,4 @@ plugin_dir=$(dirname "$(dirname "$current_script_path")")
 # shellcheck source=./lib/utils.sh
 source "${plugin_dir}/lib/utils.sh"
 
-n ls-remote | tail -n+2 | sort_versions | xargs echo
+n ls-remote --all | tac | xargs echo
