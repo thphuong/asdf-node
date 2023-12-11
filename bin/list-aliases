@@ -11,7 +11,8 @@ plugin_dir=$(dirname "$(dirname "$current_script_path")")
 source "${plugin_dir}/lib/utils.sh"
 
 # Current latest
-echo current "$(n ls-remote latest)"
+current="$(n ls-remote latest)"
+echo current "$current"
 
 # LTS
 lts="$(n ls-remote lts)"
