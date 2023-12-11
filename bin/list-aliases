@@ -1,5 +1,30 @@
 #!/usr/bin/env bash
 
 # Only for rtx
-echo lts latest
-echo stable latest
+
+set -euo pipefail
+
+current_script_path=${BASH_SOURCE[0]}
+plugin_dir=$(dirname "$(dirname "$current_script_path")")
+
+# shellcheck source=./lib/utils.sh
+source "${plugin_dir}/lib/utils.sh"
+
+# Current latest
+echo current "$(n ls-remote latest)"
+
+# LTS
+lts="$(n ls-remote lts)"
+echo lts "$lts"
+echo stable "$lts"
+echo iron "$lts"
+
+# Previous LTS
+echo hydrogen "18.19.0"
+echo gallium "16.20.2"
+echo fermium "14.21.3"
+echo erbium "12.22.12"
+echo dubnium "10.24.1"
+echo carbon "8.17.0"
+echo boron "6.17.1"
+echo argon "4.9.1"
