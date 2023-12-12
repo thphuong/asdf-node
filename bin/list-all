@@ -8,4 +8,14 @@ plugin_dir=$(dirname "$(dirname "$current_script_path")")
 # shellcheck source=./lib/utils.sh
 source "${plugin_dir}/lib/utils.sh"
 
-n ls-remote --all | tac | xargs echo
+os="$(uname -s | tr '[:upper:]' '[:lower:]')"
+
+if [ "$os" = "darwin" ]; then
+	sort_version="tail -r"
+elif [ "$os" = "linux" ]; then
+	sort_version=tac
+else
+	sort_version="fail: $os is not supported"
+fi
+
+n ls-remote --all | $sort_version | tr '\n' ' '
