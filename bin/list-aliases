@@ -21,11 +21,11 @@ echo stable "$lts"
 echo iron "$lts"
 
 # Previous LTS
-echo hydrogen "18.19.0"
-echo gallium "16.20.2"
-echo fermium "14.21.3"
-echo erbium "12.22.12"
-echo dubnium "10.24.1"
-echo carbon "8.17.0"
-echo boron "6.17.1"
-echo argon "4.9.1"
+echo hydrogen 18
+echo gallium 16
+echo fermium 14
+echo erbium 12
+echo dubnium 10
+echo carbon 8
+echo boron 6
+echo argon 4
