@@ -11,11 +11,11 @@ source "${plugin_dir}/lib/utils.sh"
 os="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
 if [ "$os" = "darwin" ]; then
-    sort_version="tail -r"
+	sort_version="tail -r"
 elif [ "$os" = "linux" ]; then
-    sort_version=tac
+	sort_version=tac
 else
-    sort_version="fail: $os is not supported"
+	sort_version="fail: $os is not supported"
 fi
 
 n ls-remote --all | $sort_version | tr '\n' ' '
