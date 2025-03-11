@@ -13,7 +13,7 @@ fail() {
 }
 
 n() {
-	if [ "$(command -v n)" != "n" ]; then
+	if [ -n "$(command -v n)" ]; then
 		command n "$@"
 	elif [ -n "${ASDF_NODE_N_EXECUTABLE:-}" ]; then
 		"${ASDF_NODE_N_EXECUTABLE:-}" "$@"
