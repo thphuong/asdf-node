@@ -7,7 +7,7 @@ set -euo pipefail
 current_script_path=${BASH_SOURCE[0]}
 plugin_dir=$(dirname "$(dirname "$current_script_path")")
 
-# shellcheck source=./lib/utils.sh
+# shellcheck source=../lib/utils.sh
 source "${plugin_dir}/lib/utils.sh"
 
 # Current latest
@@ -18,9 +18,16 @@ echo current "$current"
 lts="$(n ls-remote lts)"
 echo lts "$lts"
 echo stable "$lts"
-echo iron "$lts"
 
-# Previous LTS
+# Codenames
+echo platinum 34
+echo oxygen 32
+echo neon 30
+echo magnesium 28
+echo lithium 26
+echo krypton 24
+echo jod 22
+echo iron 20
 echo hydrogen 18
 echo gallium 16
 echo fermium 14

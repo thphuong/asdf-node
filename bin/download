@@ -2,23 +2,33 @@
 
 set -euo pipefail
 
+export N_PREFIX=/tmp/asdf_n
+
+# Cleanup
+trap 'rm -r "$N_PREFIX"' EXIT
+
 current_script_path=${BASH_SOURCE[0]}
 plugin_dir=$(dirname "$(dirname "$current_script_path")")
 
-# shellcheck source=./lib/utils.sh
+# shellcheck source=../lib/utils.sh
 source "${plugin_dir}/lib/utils.sh"
 
-DOWNLOAD_PARENT_DIR="$(dirname "$ASDF_DOWNLOAD_PATH")"
-
-mkdir -p "$DOWNLOAD_PARENT_DIR"
-
-export N_PREFIX=/tmp/asdf_n
+node_version="$(n ls-remote --all "$ASDF_INSTALL_VERSION" | head -n 1)"
+if [ -z "$node_version" ]; then
+	fail "no matched version found for $ASDF_INSTALL_VERSION."
+elif [ "$node_version" != "$ASDF_INSTALL_VERSION" ]; then
+	[ "$ASDF_INSTALL_VERSION" == "lts" ] && latest_or="latest or " || latest_or=""
+	fail "version $ASDF_INSTALL_VERSION is incompatible. Try $latest_or$node_version instead."
+fi
 
 # Download and extract to /tmp/n/versions/<version>
 n "$ASDF_INSTALL_VERSION" --download
 
 # Copy to ASDF_DOWNLOAD_PATH
-cp -r "$N_PREFIX/n/versions/node/$ASDF_INSTALL_VERSION" "$DOWNLOAD_PARENT_DIR"
+if [ -d "$ASDF_DOWNLOAD_PATH" ]; then
+	rm -rf "$ASDF_DOWNLOAD_PATH"
+else
+	mkdir -p "$(dirname "$ASDF_DOWNLOAD_PATH")"
+fi
 
-# Cleanup
-trap "rm -r /tmp/asdf_n" EXIT
+mv "$N_PREFIX/n/versions/node/$ASDF_INSTALL_VERSION" "$ASDF_DOWNLOAD_PATH"

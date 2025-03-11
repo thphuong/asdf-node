@@ -5,11 +5,11 @@ set -euo pipefail
 current_script_path=${BASH_SOURCE[0]}
 plugin_dir=$(dirname "$(dirname "$current_script_path")")
 
-# shellcheck source=./lib/utils.sh
+# shellcheck source=../lib/utils.sh
 source "${plugin_dir}/lib/utils.sh"
 
 if [ "$ASDF_INSTALL_TYPE" != "version" ]; then
-	fail "asdf-node supports release installs only"
+    fail "asdf-node supports release installs only"
 fi
 
 TEST="node --version"
@@ -17,17 +17,17 @@ TEST="node --version"
 INSTALL_PARENT_DIR="$(dirname "$ASDF_INSTALL_PATH")"
 
 (
-	mkdir -p "$INSTALL_PARENT_DIR"
-	cp -r "$ASDF_DOWNLOAD_PATH" "$INSTALL_PARENT_DIR"
+    mkdir -p "$INSTALL_PARENT_DIR"
+    cp -r "$ASDF_DOWNLOAD_PATH" "$INSTALL_PARENT_DIR"
 
-	# Smoke test
-	test_cmd="$(echo "$TEST" | cut -d' ' -f1)"
-	test -x "$ASDF_INSTALL_PATH/bin/$test_cmd" || fail "Expected $ASDF_INSTALL_PATH/$test_cmd to be executable."
+    # Smoke test
+    test_cmd="$(echo "$TEST" | cut -d' ' -f1)"
+    test -x "$ASDF_INSTALL_PATH/bin/$test_cmd" || fail "Expected $ASDF_INSTALL_PATH/$test_cmd to be executable."
 
-	PATH="$ASDF_INSTALL_PATH/bin" "$ASDF_INSTALL_PATH/bin/corepack" enable
+    PATH="$ASDF_INSTALL_PATH/bin" "$ASDF_INSTALL_PATH/bin/corepack" enable
 
-	echo "Installed node $ASDF_INSTALL_VERSION."
+    echo "Installed node $ASDF_INSTALL_VERSION."
 ) || (
-	rm -rf "$ASDF_INSTALL_PATH"
-	fail "An error occurred while installing node $ASDF_INSTALL_VERSION."
+    rm -rf "$ASDF_INSTALL_PATH"
+    fail "An error occurred while installing node $ASDF_INSTALL_VERSION."
 )
