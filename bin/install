@@ -18,7 +18,7 @@ INSTALL_PARENT_DIR="$(dirname "$ASDF_INSTALL_PATH")"
 
 (
 	mkdir -p "$INSTALL_PARENT_DIR"
-	cp -r "$ASDF_DOWNLOAD_PATH" "$INSTALL_PARENT_DIR"
+	cp -a "$ASDF_DOWNLOAD_PATH" "$INSTALL_PARENT_DIR"
 
 	# Smoke test
 	test_cmd="$(echo "$TEST" | cut -d' ' -f1)"
