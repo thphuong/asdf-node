@@ -27,6 +27,9 @@ INSTALL_PARENT_DIR="$(dirname "$ASDF_INSTALL_PATH")"
 	PATH="$ASDF_INSTALL_PATH/bin" "$ASDF_INSTALL_PATH/bin/corepack" enable
 
 	echo "Installed node $ASDF_INSTALL_VERSION."
+
+	# Install default global packages if specified
+	install_default_packages
 ) || (
 	rm -rf "$ASDF_INSTALL_PATH"
 	fail "An error occurred while installing node $ASDF_INSTALL_VERSION."

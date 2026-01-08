@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# exec-env is called before executing shims to set up environment variables
+
+# Isolate global package installations to asdf install path
+# This prevents global packages from different Node.js versions from interfering with each other
+export NPM_CONFIG_PREFIX="${ASDF_INSTALL_PATH}/libexec/npm"
+export PNPM_HOME="${ASDF_INSTALL_PATH}/libexec/pnpm"
+export YARN_GLOBAL_FOLDER="${ASDF_INSTALL_PATH}/libexec/yarn"
+
+# This is needed to silence pnpm errors about global bin directory not being in PATH
+export PATH="$PNPM_HOME:$PATH"

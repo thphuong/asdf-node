@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-echo bin "$(realpath "${HOME}/.yarn/bin" --relative-to "${ASDF_INSTALL_PATH}")"
+echo "bin" "libexec/npm/bin" "libexec/pnpm" "libexec/yarn/bin"
